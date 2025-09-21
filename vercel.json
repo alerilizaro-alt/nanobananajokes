@@ -1,21 +1,22 @@
 {
-  "cleanUrls": true,
-  "trailingSlash": false,
-  "redirects": [
+  "version": 2,
+  "routes": [
+    { "src": "/tiktok", "dest": "https://www.tiktok.com/@nanobananajokes" },
+    { "src": "/youtube", "dest": "https://www.youtube.com/@nanobananajokes" },
+    { "src": "/reddit", "dest": "https://www.reddit.com/r/nanobananajokes" }
+  ],
+  "headers": [
     {
-      "source": "/tiktok",
-      "destination": "https://www.tiktok.com/@NanoBananaJokes",
-      "permanent": true
+      "source": "/(logo|favicon-32x32|favicon-48x48|favicon)\\.(png|ico|webp)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=2592000" }
+      ]
     },
     {
-      "source": "/youtube",
-      "destination": "https://www.youtube.com/@NanoBananaJokes",
-      "permanent": true
-    },
-    {
-      "source": "/reddit",
-      "destination": "https://www.reddit.com/r/NanoBananaJokes/",
-      "permanent": true
+      "source": "/(og-image|youtube-banner|reddit-banner)\\.(png|jpg|jpeg|webp)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
     }
   ]
 }
