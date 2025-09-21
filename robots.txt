@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://nanobananajokes.com/sitemap.xml

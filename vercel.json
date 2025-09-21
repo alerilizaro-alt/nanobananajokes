@@ -1,0 +1,21 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/tiktok",
+      "destination": "https://www.tiktok.com/@NanoBananaJokes",
+      "permanent": true
+    },
+    {
+      "source": "/youtube",
+      "destination": "https://www.youtube.com/@NanoBananaJokes",
+      "permanent": true
+    },
+    {
+      "source": "/reddit",
+      "destination": "https://www.reddit.com/r/NanoBananaJokes/",
+      "permanent": true
+    }
+  ]
+}
