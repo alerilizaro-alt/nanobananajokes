@@ -19,17 +19,21 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico?v=3">
 
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
 </head>
 <body class="bg-yellow-50 text-zinc-900">
   <header class="flex justify-between items-center p-4">
     <h1 class="text-2xl font-bold">
       <span class="text-black">Nano</span><span class="text-yellow-600">Banana</span><span class="text-black">Jokes</span>
     </h1>
-    <nav class="space-x-4">
-      <a href="index.html" class="hover:underline">About</a>
-      <a href="links.html" class="hover:underline">Latest</a>
-      <a href="press.html" class="hover:underline">Links</a>
-    </nav>
   </header>
 
   <!-- Hero -->
@@ -75,29 +79,41 @@
   <!-- Latest Jokes -->
   <section class="mt-12 px-6">
     <h2 class="text-xl font-bold mb-4">Latest Nano Jokes</h2>
-    <div class="grid md:grid-cols-3 gap-6">
-      <div class="rounded-2xl border border-yellow-300 bg-white p-5 shadow-sm">
-        <h3 class="font-bold">Nano Smoothie</h3>
-        <p class="text-sm text-zinc-600 mt-1">What happens if you put a nano banana in a blender? You get a nano smoothie.</p>
-      </div>
-      <div class="rounded-2xl border border-yellow-300 bg-white p-5 shadow-sm">
-        <h3 class="font-bold">Flat Banana</h3>
-        <p class="text-sm text-zinc-600 mt-1">Why is this banana so flat? Because it’s a Nano Banana.</p>
-      </div>
-      <div class="rounded-2xl border border-yellow-300 bg-white p-5 shadow-sm">
-        <h3 class="font-bold">Nanusers</h3>
-        <p class="text-sm text-zinc-600 mt-1">Who uses Nano Bananas? Nanusers — fans with banana-shaped everything.</p>
-      </div>
-      <div class="rounded-2xl border border-yellow-300 bg-white p-5 shadow-sm">
-        <h3 class="font-bold">Nanogle Plants</h3>
-        <p class="text-sm text-zinc-600 mt-1">Where do they grow Nano Bananas? On Nanogle Plants.</p>
-      </div>
+    <div id="jokes-container" class="grid md:grid-cols-3 gap-6">
+      <!-- Jokes will be injected dynamically -->
     </div>
-    <a href="links.html" class="inline-block mt-6 px-5 py-3 rounded-xl bg-white border border-zinc-300 font-semibold shadow hover:border-zinc-400">All links</a>
+    <a href="submit.html" class="inline-block mt-6 px-5 py-3 rounded-xl bg-white border border-zinc-300 font-semibold shadow hover:border-zinc-400">Add your joke</a>
   </section>
 
   <footer class="mt-12 p-6 text-center text-sm text-zinc-500">
     © 2025 NanoBananaJokes. All rights reserved.
   </footer>
+
+  <!-- Load jokes dynamically -->
+  <script>
+    async function loadJokes() {
+      try {
+        const res = await fetch('jokes.json');
+        const jokes = await res.json();
+        const container = document.getElementById('jokes-container');
+        container.innerHTML = '';
+
+        // Берем последние 6
+        const latest = jokes.slice(-6).reverse();
+        latest.forEach(joke => {
+          const card = document.createElement('div');
+          card.className = 'rounded-2xl border border-yellow-300 bg-white p-5 shadow-sm';
+          card.innerHTML = \`
+            <h3 class="font-bold">\${joke.title}</h3>
+            <p class="text-sm text-zinc-600 mt-1">\${joke.text}</p>
+          \`;
+          container.appendChild(card);
+        });
+      } catch (err) {
+        console.error('Failed to load jokes:', err);
+      }
+    }
+    loadJokes();
+  </script>
 </body>
 </html>
